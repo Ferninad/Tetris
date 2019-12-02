@@ -208,8 +208,7 @@ void Run()
 
 void SpawnPiece(){
     piece.clear();
-    int num = 5;
-    //int num = rand() % 7 + 1;
+    int num = rand() % 7 + 1;
     int color = rand() % 6;
     if(num == 1){
         vector<int> temp;
