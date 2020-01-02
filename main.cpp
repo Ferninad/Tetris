@@ -6,6 +6,7 @@ bool Init();
 void CleanUp();
 void Run();
 void SpawnPiece();
+void Restart();
 void Draw();
 void TranslatePiece();
 void RotatePiece();
@@ -134,9 +135,6 @@ void Run()
     while (gameLoop)
     {   
         int ctime = clock();
-        
-        TranslatePiece();
-        RotatePiece();
         if(ctime - time > 1000/60){
             time = ctime;
             frameCount++;
@@ -148,6 +146,10 @@ void Run()
             else if(pieceInPlay && frameCount >= LevelSpeeds[level]){
                 frameCount = 0;
                 TickPiece();
+            }
+            else{
+                TranslatePiece();
+                RotatePiece();
             }
             Draw();
             SDL_RenderPresent(renderer);
@@ -181,9 +183,9 @@ void Run()
                     // case SDLK_w:
                     //     w = true;
                     //     break;
-                    // case SDLK_s:
-                    //     s = true;
-                    //     break;
+                    case SDLK_s:
+                        s = true;
+                        break;
                     case SDLK_LEFT:
                         leftArrow = true;
                         break;
@@ -204,6 +206,14 @@ void Run()
             }
         }
     }
+}
+
+void Restart(){
+    grid.clear();
+    for(int x = 0; x < 10; x++){
+        grid.push_back({{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}});
+    }
+    SpawnPiece();
 }
 
 void SpawnPiece(){
@@ -392,6 +402,7 @@ void SpawnPiece(){
     }
     else if(gameover){
         cout << "GameOver" << endl;
+        Restart();
     }
 }
 
@@ -404,9 +415,9 @@ void TranslatePiece(){
         else if(d){
             temp[i][0]++;
         }
-        else if(w){
-            temp[i][1]--;
-        }
+        // else if(w){
+        //     temp[i][1]--;
+        // }
         else if(s){
             temp[i][1]++;
         }
