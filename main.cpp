@@ -254,9 +254,9 @@ void SpawnPiece(){
     }
     if(num == 3){
         vector<int> temp;
-        for(int i = 3; i < 5; i++){
+        for(int i = 5; i > 3; i--){
             temp.push_back(i);  //x
-            temp.push_back(1);  //y
+            temp.push_back(0);  //y
             temp.push_back(palette[color][0]); //r
             temp.push_back(palette[color][1]); //g
             temp.push_back(palette[color][2]); //b
@@ -266,9 +266,9 @@ void SpawnPiece(){
             piece.push_back(temp);
             temp.clear();
         }
-        for(int i = 4; i < 6; i++){
+        for(int i = 4; i > 2; i--){
             temp.push_back(i);  //x
-            temp.push_back(0);  //y
+            temp.push_back(1);  //y
             temp.push_back(palette[color][0]); //r
             temp.push_back(palette[color][1]); //g
             temp.push_back(palette[color][2]); //b
@@ -428,14 +428,13 @@ void TranslatePiece(){
             }
         }
     }
-    if(temp != piece){
-        for(int i = 0; i < temp.size(); i++){
-            grid[temp[i][0]][temp[i][1]][0] = temp[i][2];
-            grid[temp[i][0]][temp[i][1]][1] = temp[i][3];
-            grid[temp[i][0]][temp[i][1]][2] = temp[i][4];
-        }
-        piece = temp;
+    for(int i = 0; i < temp.size(); i++){
+        grid[temp[i][0]][temp[i][1]][0] = temp[i][2];
+        grid[temp[i][0]][temp[i][1]][1] = temp[i][3];
+        grid[temp[i][0]][temp[i][1]][2] = temp[i][4];
     }
+    piece = temp;
+
     a = false;
     d = false;
     w = false;
@@ -1176,6 +1175,9 @@ void RotPiece(){
     for(int i = 0; i < temp.size(); i++){
         if(grid[temp[i][0]][temp[i][1]][0] != 0 && grid[temp[i][0]][temp[i][1]][1] != 0 && grid[temp[i][0]][temp[i][1]][2] != 0){
             temp = piece;
+            for(int i = 0; i < temp.size(); i++){
+                temp[i][6] = temp[i][7];
+            }
         }
     }
     for(int i = 0; i < temp.size(); i++){
